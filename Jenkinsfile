@@ -5,7 +5,7 @@ final FULL_BUILD = params.FULL_BUILD
 // HOST_PROVISION -> server to run ansible based on provision/inventory.ini
 final HOST_PROVISION = params.HOST_PROVISION
 
-final GIT_URL = 'https://github.com/ricardozanini/soccer-stats.git'
+final GIT_URL = 'https://github.com/sivareddy7204/soccer-stats.git'
 final NEXUS_URL = 'nexus.local:8081'
 
 
@@ -14,9 +14,8 @@ stage('Build') {
         git GIT_URL
 
             if(FULL_BUILD) {
-                sh "mvn -B versions:set -DnewVersion=${pom.version}-${BUILD_NUMBER}"
-                sh "mvn -B -Dmaven.test.skip=true clean package"
-                stash name: "artifact", includes: "target/soccer-stats-*.war"
+                sh "mvn clean install "
+                
             }
         }
     }
