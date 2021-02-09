@@ -11,7 +11,7 @@ final NEXUS_URL = 'nexus.local:8081'
 stage('Build') {
     node {
         git GIT_URL
-        withEnv(["PATH+MAVEN=${tool 'm3'}/bin"]) {
+         {
             if(FULL_BUILD) {
                 def pom = readMavenPom file: 'pom.xml'
                 sh "mvn -B versions:set -DnewVersion=${pom.version}-${BUILD_NUMBER}"
@@ -25,7 +25,7 @@ stage('Build') {
 if(FULL_BUILD) {
     stage('Unit Tests') {   
         node {
-            withEnv(["PATH+MAVEN=${tool 'm3'}/bin"]) {
+            {
                 sh "mvn -B clean test"
                 stash name: "unit_tests", includes: "target/surefire-reports/**"
             }
